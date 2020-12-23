@@ -1,9 +1,14 @@
 body {
     background-color: black;
+    width: 100%;
+    
 }
 html {
     text-align: center;
     font-family: monospace;
+    overflow-x: hidden;
+
+    
 }
 
 #calculadora {
@@ -18,30 +23,54 @@ html {
 #container {
     background-color: black;
     border: 10px solid rgba(47,47,47,1);
-    border-radius: 4px;
+    border-radius: 5%;
     display: grid;
-    grid-template-columns: repeat(4, 100px);
-    grid-template-rows: minmax(100px, auto) repeat(4, 80px);
+    grid-template-columns: repeat(4, 80px);
+    grid-template-rows: minmax(60px, auto) repeat(4, 55px);
     gap: 2px;
 }
 
 #display {
     grid-column: 1 / -1;
-    background-color: #b2b9b7;
+    background-color: #18c3dabb;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-end;
     padding: 5px;
-    font-size: 5.5em;
+    font-size: 2.5em;
     font-weight: initial;
+    height: 70px;
     text-shadow: 1.3px 1.3px #383838;
     margin: 5px;
+    background-image: url(/images/texturaVidroAzul.jpg);
+    backdrop-filter: blur(50px);
+    color: white;
     
 }
 input[type=button] {
     margin: 1px;
-    font-size: 1em;
+    font-size: 2em;
+    transition: all 0.7s;
+    outline: none;
+}
+
+.operandos:hover {
+    transform: scale(1.1);
+    border-color: #facc00;
+    box-shadow: 0 0 1rem #facc00;
+}
+
+.operadores:hover{
+    transform: scale(1.1);
+    border-color: rgb(170, 236, 104);
+    box-shadow: 0 0 2rem #b2da86;
+}
+
+.top:hover {
+    transform: scale(1.1);
+    border-color: rgb(255, 174, 0);
+    box-shadow: 0 0 2rem rgb(255, 174, 0);
 }
 
 .operandos {
@@ -49,7 +78,7 @@ input[type=button] {
 }
 
 .operadores {
-    background-color: rgb(72, 157, 255);
+    background-color: rgb(0, 255, 98);
 }
 
 .top {
@@ -62,5 +91,8 @@ input[type=button] {
 
 p {
     color: white;
+    text-align: right;
+    font-size: 30px;
+    font-family: 'Cedarville Cursive', cursive;
 }
 

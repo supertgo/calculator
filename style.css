@@ -96,3 +96,14 @@ p {
     font-family: 'Cedarville Cursive', cursive;
 }
 
+#clear {
+    font-size: 1.5em;
+}
+
+#delete {
+    font-size: 1.4em;
+}
+
+#equal {
+    background-color: rgb(18, 178, 252);
+}

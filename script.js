@@ -1,3 +1,4 @@
+ //DOM selectors
 let displayEl = document.querySelector('#display');
 const containerEl = document.querySelectorAll("#container");
 const operandos = document.querySelectorAll('.operandos');
@@ -8,12 +9,13 @@ const clearEl = document.querySelector('#clear');
 const deleteEl = document.querySelector('#delete');
 const toggleNegativeEl = document.querySelector('#toggleNegative');
 
+//a, b and the operation
 let firstOperand = null;
 let secondOperand = null;
 let operation = null;
 
-//criar uma função que reseta a calculadora
 
+//functions 
 function add (a, b){
     return a + b;
 }
@@ -41,6 +43,7 @@ function mudaDisplay(param) {
 
 }
 
+//show numbers on display
 function acrescentaDisplay(number) {
 
     verificaDisplay();
@@ -55,6 +58,7 @@ function acrescentaDisplay(number) {
         displayEl.textContent += number;
 }
 
+//show signal on display
 function acrescentaSinal (operador) {
     console.log(operador);
     firstOperand = Number(displayEl.textContent);
@@ -65,19 +69,21 @@ function acrescentaSinal (operador) {
      displayEl.textContent = operation;
      
 }
-
+//show dot on display
 function acrescentaPonto () {
 
     verificaDisplay();
-    if (displayEl.textContent.includes('.') || 
-    displayEl.textContent === 'RESETED' 
-    || displayEl.textContent === operation) return; //Already have a point
+
+    if (displayEl.textContent.includes('.') 
+        ||  displayEl.textContent === 'RESETED' 
+        || displayEl.textContent === operation) return; //Already have a point
     
     else  displayEl.textContent += '.';
     
 
 }
 
+//calc operations
 function operacao(a,operation, b) {
     
     switch (operation){
@@ -94,9 +100,11 @@ function operacao(a,operation, b) {
             return divide (a, b);
 
         default:
-            return null //Não existe outra operação
+            return null //There is no other operation
     }
 }
+
+//equal click
 function equals () {
 
    
@@ -108,14 +116,13 @@ function equals () {
         
     }
 
-    
-
     secondOperand = Number(displayEl.textContent);
     displayEl.textContent = operacao(firstOperand, operation, secondOperand);
     verificaDisplay();
 
 }
 
+//clear calculator same as refresh
 function clear() {
 
     //reset all variables
@@ -127,6 +134,7 @@ function clear() {
    
 }
 
+
 function deleteButton() {
 
     if (displayEl.textContent === 'RESETED') return;
@@ -137,6 +145,7 @@ function deleteButton() {
         displayEl.textContent = '0';
 }
 
+//append negative Signal on numbers
 function toggleNegative() {
     
     if (displayEl.textContent[0] === '-')
@@ -146,9 +155,9 @@ function toggleNegative() {
         displayEl.textContent = '-' + displayEl.textContent;
 }
 
+// calc by keyboard
 function byKeyBoard (e) {
     
-    //console.log(e.key);
 
     if (e.key >= 0 && e.key <= 9) acrescentaDisplay(e.key);
 
@@ -163,12 +172,11 @@ function byKeyBoard (e) {
     if (e.key === 'Backspace') deleteButton();
 
     else
-        return;
+        return;  //The order keydowns does not matter
 
-    
-    
 }
 
+// if the amout of number is bigger, the dive font is reduced
 function verificaDisplay () {
     if (displayEl.textContent.length >= 16 && displayEl.textContent.length < 20)
         displayEl.style.fontSize = '2em';
@@ -183,6 +191,7 @@ function verificaDisplay () {
         alert('Too much numbers, men!!');
 }
 
+//events
 window.addEventListener('keydown', byKeyBoard);
 operandos.forEach((cont) => cont.addEventListener('click', () => acrescentaDisplay(cont.value)));
 operadores.forEach((operador) => operador.addEventListener('click', () => acrescentaSinal(operador.value)));

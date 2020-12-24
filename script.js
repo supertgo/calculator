@@ -129,8 +129,8 @@ function clear() {
 
 function deleteButton() {
 
-    if (displayEl.textContent = 'RESETED') return;
-    
+    if (displayEl.textContent === 'RESETED') return;
+
     displayEl.textContent = displayEl.textContent.slice(0, -1);
 
     if (displayEl.textContent === '')

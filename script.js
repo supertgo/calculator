@@ -4,7 +4,9 @@ const operandos = document.querySelectorAll('.operandos');
 const operadores = document.querySelectorAll('.operadores');
 const equalEl = document.querySelector('#equal');
 const pontoEl = document.querySelector('#ponto');
-
+const clearEl = document.querySelector('#clear');
+const deleteEl = document.querySelector('#delete');
+const toggleNegativeEl = document.querySelector('#toggleNegative');
 
 let firstOperand = null;
 let secondOperand = null;
@@ -33,14 +35,20 @@ function mudaDisplay(param) {
     if (param === ' ')
      displayEl.textContent = '';
     
-    else {
+    else 
         displayEl.textContent = param;
-    }
+    
 
 }
 
 function acrescentaDisplay(number) {
-    if (displayEl.textContent == '0' || displayEl.textContent === operation)
+
+    verificaDisplay();
+
+    if (displayEl.textContent == '0' 
+        || displayEl.textContent === operation 
+        || displayEl.textContent === 'RESETED')
+
         displayEl.textContent = number;
     
     else
@@ -60,9 +68,11 @@ function acrescentaSinal (operador) {
 
 function acrescentaPonto () {
 
-
-    if (displayEl.textContent.includes('.')) return; //Already have a point
-
+    verificaDisplay();
+    if (displayEl.textContent.includes('.') || 
+    displayEl.textContent === 'RESETED' 
+    || displayEl.textContent === operation) return; //Already have a point
+    
     else  displayEl.textContent += '.';
     
 
@@ -89,7 +99,7 @@ function operacao(a,operation, b) {
 }
 function equals () {
 
-    
+   
     if (operation === null) return;
 
     if (operation === '/' && displayEl.textContent == 0){
@@ -98,18 +108,87 @@ function equals () {
         
     }
 
-    console.log(displayEl.textContent);
+    
 
     secondOperand = Number(displayEl.textContent);
     displayEl.textContent = operacao(firstOperand, operation, secondOperand);
+    verificaDisplay();
 
 }
 
+function clear() {
 
+    //reset all variables
+    firstOperand = 0;
+    secondOperand = 0;
+    operation = null;
+
+    mudaDisplay('RESETED');
+   
+}
+
+function deleteButton() {
+    displayEl.textContent = displayEl.textContent.slice(0, -1);
+
+    if (displayEl.textContent === '')
+        displayEl.textContent = '0';
+}
+
+function toggleNegative() {
+    
+    if (displayEl.textContent[0] === '-')
+        displayEl.textContent = displayEl.textContent.slice(1);
+    
+    else
+        displayEl.textContent = '-' + displayEl.textContent;
+}
+
+function byKeyBoard (e) {
+    
+    //console.log(e.key);
+
+    if (e.key >= 0 && e.key <= 9) acrescentaDisplay(e.key);
+
+    if (e.key === '/' || e.key === '*' || e.key === '+' || e.key === '-') acrescentaSinal(e.key);
+
+    if (e.key === '.') acrescentaPonto();
+
+    if (e.key === 'Enter') equals();
+
+    if (e.key === 'Delete') clear();
+
+    if (e.key === 'Backspace') deleteButton();
+
+    else
+        return;
+
+    
+    
+}
+
+function verificaDisplay () {
+    if (displayEl.textContent.length >= 16 && displayEl.textContent.length < 20)
+        displayEl.style.fontSize = '2em';
+
+    if (displayEl.textContent.length >= 20 && displayEl.textContent.length < 27)
+        displayEl.style.fontSize = '1.5em';
+
+    if (displayEl.textContent.length >= 27 && displayEl.textContent.length < 41)
+        displayEl.style.fontSize = '1em';
+
+    if (displayEl.textContent.length >= 41)
+        alert('Too much numbers, men!!');
+}
+
+window.addEventListener('keydown', byKeyBoard);
 operandos.forEach((cont) => cont.addEventListener('click', () => acrescentaDisplay(cont.value)));
 operadores.forEach((operador) => operador.addEventListener('click', () => acrescentaSinal(operador.value)));
 pontoEl.addEventListener('click', acrescentaPonto);
 equalEl.addEventListener('click', equals);
+clearEl.addEventListener('click', clear);
+deleteEl.addEventListener('click', deleteButton);
+toggleNegativeEl.addEventListener('click', toggleNegative);
+
 
 
 

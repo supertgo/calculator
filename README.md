@@ -4,3 +4,7 @@ This is the final project The curriculum OdinProject foundations, i am excited t
 
 
 👉 Live Demo: https://supertgo.github.io/calculator/
+
+<p align="center">
+  <img src="/demo/calculator.gif" />
+</p>
